@@ -20,7 +20,7 @@ class Books extends React.Component {
     };
   }
 
-  submission = async (e) => {
+ componentDidMount = () => {
     try {
       const booksUrl = `${process.env.REACT_APP_LOCAL_SERVER_API}/books`;
       axios.get(booksUrl).then((booksData) => {
@@ -47,7 +47,6 @@ class Books extends React.Component {
     return (
       <div className="books">
         <h2>Books List</h2>
-        <button onClick={this.submission}>Show Books</button>
         <Row xs={1} md={6} className="g-4">
           {this.state.booksData.map((element, idx) =>{
               if(element.status === "Available"){
