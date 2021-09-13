@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Index from "./components/Index";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" exact render={props =><Index {...props} />} />
+      <Route path="/login" exact render={props => <Login {...props} />} />
+      <Route
+        path="/profile"
+        exact
+        render={props => <Profile {...props} />}
+      />
+      <Redirect to="/" />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

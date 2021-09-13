@@ -49,7 +49,9 @@ class Books extends React.Component {
         <h2>Books List</h2>
         <button onClick={this.submission}>Show Books</button>
         <Row xs={1} md={6} className="g-4">
-          {this.state.booksData.map((element, idx) => (
+          {this.state.booksData.map((element, idx) =>{
+              if(element.status === "Available"){
+                  return(
             <Col>
               <Card>
                 <Card.Img variant="top" src={element.imgUrl} />
@@ -57,8 +59,11 @@ class Books extends React.Component {
                   <Card.Title>{element.title}</Card.Title>
                 </Card.Body>
               </Card>
-            </Col>
-          ))}
+            </Col>)}
+            else {
+                <h1>No Books Found!</h1>
+            }
+          })}
         </Row>
       </div>
     );
