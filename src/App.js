@@ -1,7 +1,10 @@
 import React from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Header from "./components/Header";
 import Index from "./components/Index";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -9,11 +12,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-      <Header/>
-      <Index/>
-      <Footer/>
-      </div>
+      <BrowserRouter>
+      <Switch>
+        <Route path="/" exact render={props =><Index {...props} />} />
+        <Route path="/login" exact render={props => <Login {...props} />} />
+        <Route
+          path="/profile"
+          exact
+          render={props => <Profile {...props} />}
+        />
+        <Redirect to="/" />
+      </Switch>
+    </BrowserRouter>
     )
   }
 }
