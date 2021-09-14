@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-bootstrap";
 import BookFormModal from "./BookFormModal";
+import BookUpdateModal from "./BookUpdateModal";
 
 class Books extends React.Component {
   constructor(props) {
@@ -19,12 +20,13 @@ class Books extends React.Component {
       logedEmail: "",
       addFormShow: false,
       email: localStorage.getItem("user_email"),
+      showUpdateModal: false,
+      selectedBook: {},
     };
   }
 
   addBookHandle = (e) => {
     e.preventDefault();
-
     const reqBody = {
       title: e.target.title.value,
       imgUrl: e.target.imgUrl.value,
@@ -32,9 +34,9 @@ class Books extends React.Component {
       status: e.target.status.value,
       email: this.state.email,
     };
-
-    axios.post(`${process.env.REACT_APP_LOCAL_SERVER_API}/books`, reqBody)
-      .then(newBook => {
+    axios
+      .post(`${process.env.REACT_APP_LOCAL_SERVER_API}/books`, reqBody)
+      .then((newBook) => {
         this.state.booksData.push(newBook.data);
         const newBooks = this.state.booksData;
         this.setState({ booksData: newBooks });
@@ -47,16 +49,61 @@ class Books extends React.Component {
     this.setState({ addFormShow: !this.state.addFormShow });
   };
 
+  handelUpdateModal = (e) => {
+    e.preventDefault();
 
+    const reqBody = {
+      title: e.target.title.value,
+      imgUrl: e.target.imgUrl.value,
+      description: e.target.desc.value,
+      status: e.target.status.value,
+      email: this.state.email,
+    };
+
+    axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_SERVER_API}/books/${this.state.selectedBook._id}`,
+        reqBody
+      )
+      .then((updatedBook) => {
+        const updateBookArr = this.state.booksData.map((book) => {
+          if (book._id === this.state.selectedBook._id) {
+            book = updatedBook.data;
+
+            return book;
+          }
+          return book;
+        });
+
+        this.setState({
+          booksData: updateBookArr,
+          selectedBook: {},
+        });
+        this.handelDisplayUpdateModal();
+      })
+      .catch(() => alert("Something went wrong!"));
+  };
+
+  handelDisplayUpdateModal = (bookObj) => {
+    this.setState({
+      showUpdateModal: !this.state.showUpdateModal,
+      selectedBook: bookObj,
+    });
+  };
 
   deleteBookHandle = (id) => {
-    axios.delete(`${process.env.REACT_APP_LOCAL_SERVER_API}/books/${id}`).then(deleteResponse => {
-      if (deleteResponse.data.deletedCount === 1) {
-        const newBookArr = this.state.booksData.filter(book => book._id !== id);
-        this.setState({ booksData: newBookArr });
-      }
-    }).catch(() => alert("something went wrong"));
-  }
+    axios
+      .delete(`${process.env.REACT_APP_LOCAL_SERVER_API}/books/${id}`)
+      .then((deleteResponse) => {
+        if (deleteResponse.data.deletedCount === 1) {
+          const newBookArr = this.state.booksData.filter(
+            (book) => book._id !== id
+          );
+          this.setState({ booksData: newBookArr });
+        }
+      })
+      .catch(() => alert("something went wrong"));
+  };
 
   componentDidMount = () => {
     try {
@@ -72,11 +119,13 @@ class Books extends React.Component {
   };
 
   render() {
-    console.log("book",this.props.email);
+    console.log("book", this.props.email);
     return (
       <div className="books">
         <h2>Books List</h2>
-        <button onClick={this.addFormShow} className="button">+</button>
+        <button onClick={this.addFormShow} className="button">
+          +
+        </button>
         {this.state.addFormShow && (
           <>
             <BookFormModal
@@ -86,6 +135,18 @@ class Books extends React.Component {
             />
           </>
         )}
+
+        {this.state.showUpdateModal && (
+          <>
+            <BookUpdateModal
+              show={this.state.showUpdateModal}
+              handelUpdateModal={this.handelUpdateModal}
+              handelDisplayUpdateModal={this.handelDisplayUpdateModal}
+              selectedBook={this.state.selectedBook}
+            />
+          </>
+        )}
+
         {this.state.booksData.length > 0 && (
           <Row xs={1} md={3} className="g-4">
             {this.state.booksData.map((element, idx) => {
@@ -93,12 +154,26 @@ class Books extends React.Component {
                 return (
                   <Col>
                     <Card>
-                      <Card.Img variant="top" src={element.imgUrl} />
+                   
+                      <Card.Img variant="top" className="cardImg" src={element.imgUrl} />
                       <Card.Body>
-                        <Card.Title>{element.title}</Card.Title>
-                        <Card.Text>{element.description}</Card.Text>
-                        <Card.Text>{element.email}</Card.Text>
-                        <Button variant="danger" onClick={() => this.deleteBookHandle(element._id)}>Delete</Button>
+                        <Card.Title >{element.title}</Card.Title>
+                        <Card.Text className="cardText">{element.description}</Card.Text>
+                        <Card.Text className="cardEmail">{element.email}</Card.Text>
+                        <i class="fas fa-pen" onClick={() => this.handelDisplayUpdateModal(element)}></i>
+                        <Button
+                          variant="danger"
+                          onClick={() => this.deleteBookHandle(element._id)}
+                        >
+                          Delete
+                        </Button>
+                        
+                        {/* <Button
+                          variant="warning"
+                          onClick={() => this.handelDisplayUpdateModal(element)}
+                        >
+                          Update
+                        </Button> */}
                       </Card.Body>
                     </Card>
                   </Col>

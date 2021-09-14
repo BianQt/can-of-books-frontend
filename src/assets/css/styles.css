@@ -91,3 +91,25 @@ main tr {
  height: 50px;
  margin-top: 320px;
  }
+ i {
+    font-size: 20px;
+    text-align: right;
+    margin: 10px;
+    color: gray;
+    margin-right: 250px;
+ }
+ .cardImg{
+    width: 388px;
+    height: 388px;
+    margin-bottom: 10px;
+}
+ .cardText{
+    height: 260px;
+    margin-top: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+ }
+ .cardEmail{
+     color: blue;
+     text-decoration: underline;
+ }
