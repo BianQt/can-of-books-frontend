@@ -11,6 +11,7 @@ class LoginForm extends React.Component {
     alert(`Hello ${userName} with ${email}`);
     localStorage.setItem("user_email",email);
     localStorage.setItem("user_name",userName);
+    localStorage.setItem("log_status","Logout");
     window.location.href='/';
   };
 
