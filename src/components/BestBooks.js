@@ -37,13 +37,10 @@ class Books extends React.Component {
       .then(newBook => {
         this.state.booksData.push(newBook.data);
         const newBooks = this.state.booksData;
-        this.setState({ booksData: newBooks },()=>{
-          console.log("updated!");
-        });
+        this.setState({ booksData: newBooks });
       })
       .catch(() => console.log("Something went wrong!"));
     this.addFormShow();
-    window.location.reload();
   };
 
   addFormShow = () => {

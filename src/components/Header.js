@@ -26,7 +26,7 @@ class Header extends React.Component {
                 { localStorage.getItem("log_status")?"Logout":"Login"}</Nav.Link>
             </Nav>
             {this.state.user&&
-            <h4>{`Hello ${this.state.user}`}</h4>}
+            <p>{this.state.user}</p>}
           </Container>
         </Navbar>
       </header>
