@@ -5,28 +5,33 @@ import Index from "./components/Index";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './assets/css/styles.css';
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/css/styles.css";
 
 class App extends React.Component {
-
   render() {
-
     return (
-      <div >
-      <Header />
-      <BrowserRouter>
-      <Switch>
-        <Route exact path="/"> <Index /></Route>
-        <Route exact path="/login"><Login /></Route>  
-        <Route exact path="/profile"><Profile /></Route>  
-        <Redirect to="/" />
-      </Switch>
-    </BrowserRouter>
-     <Footer/>
-     </div>
-    )
+      <div>
+        <Header />
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact render={(props) => <Index {...props} />} />
+            <Route
+              path="/login"
+              exact
+              render={(props) => <Login {...props} />}
+            />
+            <Route
+              path="/profile"
+              exact
+              render={(props) => <Profile {...props} />}
+            />
+            <Redirect to="/" />
+          </Switch>
+        </BrowserRouter>
+        <Footer />
+      </div>
+    );
   }
 }
 
