@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar,Nav, Container } from "react-bootstrap";
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user:localStorage.getItem("user_name"),
+    };
+  }
+
+  
 
   render() {
+  
     return (
       <header>
         <Navbar className="header shadow-sm p-3 mb-5 bg-white rounded">
@@ -16,7 +25,8 @@ class Header extends React.Component {
               <Nav.Link href="/profile">Profile</Nav.Link>
               <Nav.Link href="/login">Login</Nav.Link>
             </Nav>
-            
+            {this.state.user&&
+            <h4>{`Hello ${this.state.user}`}</h4>}
           </Container>
         </Navbar>
       </header>

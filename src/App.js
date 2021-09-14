@@ -10,32 +10,22 @@ import './assets/css/styles.css';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      user:'',
-    };
-  }
-
-  userHandle = (user,email)=>{
-    this.setState({email: email});
-    console.log("fun",this.state.email);
-  }
-
 
   render() {
-    console.log("rend",this.state.email);
+
     return (
+      <div >
+      <Header />
       <BrowserRouter>
       <Switch>
-        <Route exact path="/"> <Index email={this.state.email} /></Route>
-        <Route exact path="/login"><Login userHandle={this.userHandle} /></Route>  
+        <Route exact path="/"> <Index /></Route>
+        <Route exact path="/login"><Login /></Route>  
         <Route exact path="/profile"><Profile /></Route>  
-
         <Redirect to="/" />
       </Switch>
     </BrowserRouter>
+     <Footer/>
+     </div>
     )
   }
 }

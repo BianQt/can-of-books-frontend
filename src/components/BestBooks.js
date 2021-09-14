@@ -18,7 +18,7 @@ class Books extends React.Component {
       booksData: [],
       logedEmail: "",
       addFormShow: false,
-      email: this.props.email,
+      email: localStorage.getItem("user_email"),
     };
   }
 

@@ -79,4 +79,15 @@ main tr {
     margin-right: 1020px;
     margin-bottom: 40px;
  }
-  
+
+ .login-form{
+    width: 50%;
+    margin: 0 150px;
+ }
+
+
+ footer{
+ text-align: center;
+ height: 50px;
+ margin-top: 320px;
+ }

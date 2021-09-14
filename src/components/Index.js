@@ -10,12 +10,12 @@ class Index extends React.Component {
     console.log("index",this.props.email);
     return (
       <main>
-      <Header/>
+      
       <div style={{margin:"0px 150px"}}>
       <Books user={this.props.user}
       email={this.props.email} />
       </div>
-      <Footer/>
+     
       </main>
     );
   }
