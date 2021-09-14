@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar,Nav, Container } from "react-bootstrap";
 
 class Header extends React.Component {
+
   render() {
     return (
       <header>
@@ -15,6 +16,7 @@ class Header extends React.Component {
               <Nav.Link href="/profile">Profile</Nav.Link>
               <Nav.Link href="/login">Login</Nav.Link>
             </Nav>
+            
           </Container>
         </Navbar>
       </header>

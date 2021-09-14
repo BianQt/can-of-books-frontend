@@ -1,4 +1,4 @@
-main{
+/* main{
     margin: 70px 130px;
 
   
@@ -61,4 +61,22 @@ main tr {
 }
 .movies h2 {
     margin-bottom: 40px;
-}
+} */
+
+.button {
+    min-height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border-color: transparent;
+    background-color: #8b8a8d;
+    color: #fff;
+    font-size: 30px;
+    padding-bottom: 6px;
+    border-width: 0;
+  }
+ h2 {
+    display: inline-block;
+    margin-right: 1020px;
+    margin-bottom: 40px;
+ }
+  
