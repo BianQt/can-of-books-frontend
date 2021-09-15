@@ -1,25 +1,17 @@
 import React from "react";
 import axios from "axios";
-import {
-  Card,
-  Button,
-  Row,
-  Container,
-  Col,
-  Table,
-  Alert,
-} from "react-bootstrap";
+import {Card,Button,Row,Col} from "react-bootstrap";
 import BookFormModal from "./BookFormModal";
 import BookUpdateModal from "./BookUpdateModal";
+import { withAuth0 } from '@auth0/auth0-react';
 
 class Books extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       booksData: [],
-      logedEmail: "",
       addFormShow: false,
-      email: localStorage.getItem("user_email"),
+      email: this.props.auth0.user.email,
       showUpdateModal: false,
       selectedBook: {},
     };
@@ -57,7 +49,7 @@ class Books extends React.Component {
       imgUrl: e.target.imgUrl.value,
       description: e.target.desc.value,
       status: e.target.status.value,
-      email: this.state.email,
+      email: this.props.auth0.user.email,
     };
 
     axios
@@ -107,7 +99,7 @@ class Books extends React.Component {
 
   componentDidMount = () => {
     try {
-      const booksUrl = `${process.env.REACT_APP_LOCAL_SERVER_API}/books`;
+      const booksUrl = `${process.env.REACT_APP_LOCAL_SERVER_API}/books?email=${this.state.email}`;
       axios.get(booksUrl).then((booksData) => {
         this.setState({
           booksData: booksData.data,
@@ -168,12 +160,6 @@ class Books extends React.Component {
                           Delete
                         </Button>
                         
-                        {/* <Button
-                          variant="warning"
-                          onClick={() => this.handelDisplayUpdateModal(element)}
-                        >
-                          Update
-                        </Button> */}
                       </Card.Body>
                     </Card>
                   </Col>
@@ -189,4 +175,4 @@ class Books extends React.Component {
   }
 }
 
-export default Books;
+export default withAuth0(Books);
