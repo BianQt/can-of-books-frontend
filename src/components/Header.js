@@ -1,5 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navbar,Nav, Container } from "react-bootstrap";
+import { withAuth0 } from "@auth0/auth0-react";
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
 
 class Header extends React.Component {
   constructor(props) {
@@ -11,7 +14,7 @@ class Header extends React.Component {
   }
 
   render() {
-  
+    const isAuth = this.props.auth0.isAuthenticated;
     return (
       <header>
         <Navbar className="header shadow-sm p-3 mb-5 bg-white rounded">
@@ -22,16 +25,13 @@ class Header extends React.Component {
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/profile">Profile</Nav.Link>
-              <Nav.Link href="/login">
-                { localStorage.getItem("log_status")?"Logout":"Login"}</Nav.Link>
             </Nav>
-            {this.state.user&&
-            <p>{this.state.user}</p>}
           </Container>
+          {isAuth ? <LogoutButton /> : <LoginButton />}
         </Navbar>
       </header>
     );
   }
 }
 
-export default Header;
+export default withAuth0(Header);
