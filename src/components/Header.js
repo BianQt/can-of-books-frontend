@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar,Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
@@ -23,8 +24,8 @@ class Header extends React.Component {
               <h1>Can of Books</h1>
             </Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/profile">Profile</Nav.Link>
+              <Link href="/">Home</Link>
+              <Link href="/profile">Profile</Link>
             </Nav>
           </Container>
           {isAuth ? <LogoutButton /> : <LoginButton />}
